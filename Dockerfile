@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
   qemu-user-static \
   && rm -rf /var/lib/apt/lists/*
 
-ENV ANDROID_NDK_VERSION=r28c
+ENV ANDROID_NDK_VERSION=r28
 ENV ANDROID_NDK_ROOT=/opt/android-ndk
 
 RUN wget https://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux.zip -O /tmp/ndk.zip && \
@@ -37,3 +37,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
 
 WORKDIR /project
 CMD ["bash"]
+
+#ENV ANDROID_NDK_ROOT=/opt/android-ndk
+#ENV TARGET=armv7-linux-androideabi
+#ENV API=21
+#ENV TOOLCHAIN=$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin
+#ENV CARGO_TARGET_ARMV7_LINUX_ANDROIDEABI_LINKER=$TOOLCHAIN/armv7a-linux-androideabi${API}-clang
