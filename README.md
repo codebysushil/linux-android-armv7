@@ -9,12 +9,12 @@ This repository provides a cross-compilation Docker image for building Rust + No
 ## 📦 Image Features
 
 - ✅ Ubuntu 22.04 base
-- ✅ Android NDK r28
+- ✅ Android NDK r27c 
 - ✅ Rust toolchain + `armv7-linux-androideabi` target
 - ✅ Node.js (v18 LTS) + Yarn
 - ✅ QEMU support for cross-arch compatibility
 
-
+---
 
 ## 📥 Usage
 
