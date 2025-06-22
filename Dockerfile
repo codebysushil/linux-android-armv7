@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
   qemu-user-static \
   && rm -rf /var/lib/apt/lists/*
 
-ENV ANDROID_NDK_VERSION=r25c
+ENV ANDROID_NDK_VERSION=r28c
 ENV ANDROID_NDK_ROOT=/opt/android-ndk
 
 RUN wget https://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux.zip -O /tmp/ndk.zip && \
