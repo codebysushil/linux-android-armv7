@@ -28,7 +28,7 @@ RUN wget https://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERS
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="/root/.cargo/bin:$PATH"
-RUN rustup target add armv7-linux-androideabi
+RUN rustup target add arm-linux-androideabi
 
 # Install Node.js and Yarn
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
