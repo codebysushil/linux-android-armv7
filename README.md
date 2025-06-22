@@ -1,4 +1,4 @@
-# 🐳 Android ARMv7 Builder Docker Image
+### 🐳 Android ARMv7 Builder Docker Image
 
 [![Docker Image (linux-android-armv7)](https://github.com/codebysushil/linux-android-armv7/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/codebysushil/linux-android-armv7/actions/workflows/docker-publish.yml)
 
@@ -6,7 +6,7 @@ This repository provides a cross-compilation Docker image for building Rust + No
 
 ---
 
-## 📦 Image Features
+#### 📦 Image Features
 
 - ✅ Ubuntu 22.04 base
 - ✅ Android NDK r27c 
@@ -16,21 +16,21 @@ This repository provides a cross-compilation Docker image for building Rust + No
 
 ---
 
-## 📥 Usage
+### 📥 Usage
 
-### Pull the image
+#### Pull the image
 
 ```bash
 docker pull ghcr.io/codebysushil/linux-android-armv7-builder:latest
 ```
 
-## Release
+#### Release
 
 ```bash
 cargo build --target armv7-linux-androideabi --release
 ```
 
-### Example
+#### Example
 
 ```yml
 - target: armv7-linux-androideabi
