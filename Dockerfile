@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 # Set environment variables
-ENV ANDROID_NDK_VERSION=r28
+ENV ANDROID_NDK_VERSION=r27c
 ENV ANDROID_NDK_ROOT=/opt/android-ndk
 ENV PATH="$ANDROID_NDK_ROOT:$PATH"
 
