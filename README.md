@@ -1,7 +1,6 @@
 # 🐳 Android ARMv7 Builder Docker Image
 
-[![Publish Docker Image (linux-android-armv7)]
-(https://github.com/codebysushil/linux-android-armv7/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/codebysushil/linux-android-armv7/actions/workflows/docker-publish.yml)
+[![Publish Docker Image (linux-android-armv7)](https://github.com/codebysushil/linux-android-armv7/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/codebysushil/linux-android-armv7/actions/workflows/docker-publish.yml)
 
 This repository provides a cross-compilation Docker image for building Rust + Node.js native modules targeting `linux-android-armv7` (Android NDK `armeabi-v7a`).
 
