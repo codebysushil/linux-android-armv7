@@ -47,7 +47,7 @@ cargo build --target aarch64-linux-android --release
 ```yml
 - target: armeabi-linux-androideabi
   strip: llvm-strip
-  image: ghcr.io/codebysushil/linux-android-armv7/linux-android-armv7: latest@sha256:90632d805b53d78e5f0fe98c0ac8ceb3528b344a00b024106b66919fbf91d887
+  image: ghcr.io/codebysushil/linux-android-armv7/linux-android-armv7:latest@sha256:90632d805b53d78e5f0fe98c0ac8ceb3528b344a00b024106b66919fbf91d887
 
 - target: aarch64-linux-andeoid
   strip: llvm-strip
