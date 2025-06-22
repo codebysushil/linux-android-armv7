@@ -1,4 +1,4 @@
 # .cargo/config.toml
 
 [target.armeabi-linux-androideabi]
-linker = "/opt/android-ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/armeabi-linux-androideabi24-clang++"
+linker="/opt/android-ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/armeabi-linux-androideabi24-clang++"
