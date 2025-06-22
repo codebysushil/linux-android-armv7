@@ -25,12 +25,21 @@ docker pull ghcr.io/codebysushil/linux-android-armv7-builder:latest
 ```
 
 #### Release
-target `armv7` or `armeabi`
+target `armv7` or `armeabi` CPU architecture
 
+**OS:** Android
+**ARCH:** armv7 or aarch64
+
+for armv7a (32-bit)
 ```bash
 cargo build --target armeabi-linux-androideabi --release
 
-cargo build --target armv7-linux-androideabi
+cargo build --target armv7-linux-androideabi --release
+```
+
+for armv8a or aarch64 (64-bit)
+```bash
+cargo build --target aarch64-linux-android --release
 ```
 
 #### Example
