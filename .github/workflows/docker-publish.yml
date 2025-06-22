@@ -1,6 +1,6 @@
 # .github/workflows/docker-publish.yml
 
-name: Build and Publish Docker Image
+name: Docker Image
 
 on:
   push:
