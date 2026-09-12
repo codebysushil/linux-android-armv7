@@ -1,6 +1,9 @@
-[package]                                         name = "armv7-android"
+[package]
+name = "armv7-android"
 version = "0.1.0"
 edition = "2021"
+
+[dependencies]
 
 [lib]
 crate-type = ["cdylib"]
