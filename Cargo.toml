@@ -1,7 +1,10 @@
 [package]
-name = "armv7-android"
+name = "android-rust-app"
 version = "0.1.0"
 edition = "2021"
+authors = ["Sushil Kumar"]
+description = "Rust Android multi-architecture example"
+license = "Apache 2.0"
 
 [dependencies]
 

@@ -74,50 +74,6 @@ jobs:
           echo "$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin" >> "$GITHUB_PATH"
 
       # ------------------------------------------------------
-      # Configure Cargo linker
-      # ------------------------------------------------------
-
-      - name: Configure Cargo
-        shell: bash
-        run: |
-          mkdir -p ~/.cargo
-
-          NDK="$ANDROID_HOME/ndk/27.2.12479018"
-          TOOLCHAIN="$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin"
-
-          case "${{ matrix.target }}" in
-
-            aarch64-linux-android)
-              LINKER="$TOOLCHAIN/aarch64-linux-android24-clang"
-              ;;
-
-            armv7-linux-androideabi)
-              LINKER="$TOOLCHAIN/armv7a-linux-androideabi24-clang"
-              ;;
-
-            x86_64-linux-android)
-              LINKER="$TOOLCHAIN/x86_64-linux-android24-clang"
-              ;;
-
-            i686-linux-android)
-              LINKER="$TOOLCHAIN/i686-linux-android24-clang"
-              ;;
-
-            *)
-              echo "Unsupported target"
-              exit 1
-              ;;
-          esac
-
-          cat > ~/.cargo/config.toml <<EOF
-          [target.${{ matrix.target }}]
-          linker = "$LINKER"
-          EOF
-
-          echo "Using linker:"
-          cat ~/.cargo/config.toml
-
-      # ------------------------------------------------------
       # Build
       # ------------------------------------------------------
 

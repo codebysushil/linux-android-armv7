@@ -1,4 +1,22 @@
-# .cargo/config.toml
-
 [target.armeabi-linux-androideabi]
 linker="/opt/android-ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/armeabi-linux-androideabi24-clang++"
+
+# Android ARMv7
+[target.armv7-linux-androideabi]
+ar = "llvm-ar"
+linker = "armv7a-linux-androideabi-clang"
+
+# Android ARM64
+[target.aarch64-linux-android]
+ar = "llvm-ar"
+linker = "aarch64-linux-android-clang"
+
+# Android x86
+[target.i686-linux-android]
+ar = "llvm-ar"
+linker = "i686-linux-android-clang"
+
+# Android x86_64
+[target.x86_64-linux-android]
+ar = "llvm-ar"
+linker = "x86_64-linux-android-clang"
