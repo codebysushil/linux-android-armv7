@@ -7,7 +7,8 @@ description = "Rust Android multi-architecture example"
 license = "Apache 2.0"
 
 [lib]
-crate-type = ["cdylib"]
+name = "android_rust_app"
+crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
 napi = "2"
