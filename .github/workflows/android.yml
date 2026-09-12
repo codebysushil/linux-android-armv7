@@ -2,118 +2,87 @@ name: Build Android
 
 on:
   push:
-    branches:
-      - main
   pull_request:
 
 jobs:
-  build-android:
-    name: Android ${{ matrix.name }}
-
-    runs-on: ubuntu-24.04
+  build:
+    name: Build ${{ matrix.name }}
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
         include:
-          - name: arm64-v8a
-            target: aarch64-linux-android
-
-          - name: armeabi-v7a
+          - name: armv7
             target: armv7-linux-androideabi
 
-          - name: x86_64
-            target: x86_64-linux-android
+          - name: arm64
+            target: aarch64-linux-android
 
           - name: x86
             target: i686-linux-android
 
-    steps:
-      # ------------------------------------------------------
-      # Checkout your GitHub package
-      # ------------------------------------------------------
+          - name: x86_64
+            target: x86_64-linux-android
 
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ------------------------------------------------------
-      # Rust
-      # ------------------------------------------------------
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
-          targets: ${{ matrix.target }}
+          toolchain: stable
+          target: ${{ matrix.target }}
 
-      # ------------------------------------------------------
-      # Android SDK + NDK
-      # ------------------------------------------------------
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
 
-      - name: Setup Android
+      - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
       - name: Install Android NDK
         run: |
-          sdkmanager "platform-tools"
-          sdkmanager "platforms;android-35"
-          sdkmanager "build-tools;35.0.0"
-          sdkmanager "ndk;27.2.12479018"
+          sdkmanager --install "ndk;27.2.12479018"
 
-      # ------------------------------------------------------
-      # Configure Android NDK
-      # ------------------------------------------------------
-
-      - name: Configure Android environment
-        shell: bash
+      - name: Set Android NDK
         run: |
-          NDK="$ANDROID_HOME/ndk/27.2.12479018"
+          echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/27.2.12479018" >> "$GITHUB_ENV"
+          echo "ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/27.2.12479018" >> "$GITHUB_ENV"
 
-          echo "ANDROID_NDK_ROOT=$NDK" >> "$GITHUB_ENV"
-          echo "ANDROID_NDK_HOME=$NDK" >> "$GITHUB_ENV"
+      - name: Add NDK LLVM to PATH
+        run: |
+          echo "$ANDROID_SDK_ROOT/ndk/27.2.12479018/toolchains/llvm/prebuilt/linux-x86_64/bin" >> "$GITHUB_PATH"
 
-          echo "$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin" >> "$GITHUB_PATH"
+      - name: Verify NDK
+        run: |
+          echo "NDK:"
+          echo "$ANDROID_NDK_HOME"
 
-      # ------------------------------------------------------
-      # Build
-      # ------------------------------------------------------
+          echo "LLVM:"
+          ls "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin" \
+            | grep -E 'clang$|clang\+\+$'
+
+      - name: Verify target linker
+        run: |
+          which "${{ matrix.target == 'armv7-linux-androideabi' && 'armv7a-linux-androideabi-clang' || matrix.target == 'aarch64-linux-android' && 'aarch64-linux-android-clang' || matrix.target == 'i686-linux-android' && 'i686-linux-android-clang' || 'x86_64-linux-android-clang' }}"
 
       - name: Generate Cargo.lock
         run: cargo generate-lockfile
 
-      - name: Build
+      - name: Cargo build
         run: |
           cargo build \
             --release \
             --locked \
             --target "${{ matrix.target }}"
 
-      # ------------------------------------------------------
-      # Verify binary
-      # ------------------------------------------------------
-
-      - name: Verify
+      - name: Show output
         run: |
-          file \
-            "target/${{ matrix.target }}/release/hello-world"
-
-      # ------------------------------------------------------
-      # Prepare artifact
-      # ------------------------------------------------------
-
-      - name: Prepare artifact
-        run: |
-          mkdir -p dist/${{ matrix.name }}
-
-          cp \
-            "target/${{ matrix.target }}/release/hello-world" \
-            "dist/${{ matrix.name }}/"
-
-      # ------------------------------------------------------
-      # Upload GitHub Actions artifact
-      # ------------------------------------------------------
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-${{ matrix.name }}
-          path: dist/${{ matrix.name }}/
+          find "target/${{ matrix.target }}/release" \
+            -maxdepth 1 \
+            -type f \
+            -print
