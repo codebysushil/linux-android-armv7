@@ -6,8 +6,6 @@ authors = ["Sushil Kumar"]
 description = "Rust Android multi-architecture example"
 license = "Apache 2.0"
 
-[dependencies]
-
 [lib]
 crate-type = ["cdylib"]
 
