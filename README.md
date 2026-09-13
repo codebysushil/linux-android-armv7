@@ -21,8 +21,11 @@ This repository provides a cross-compilation Docker image for building Rust + No
 
 #### Pull the image
 
-```ru
-docker pull ghcr.io/codebysushil/linux-android-armv7-builder:latest
+```yml
+- target: armv7-linux-androideabi
+  name: armv7
+  strip: llvm-strip
+  image: ghcr.io/codebysushil/linux-android-armv7-builder:latest
 ```
 
 #### Release
@@ -48,9 +51,9 @@ cargo build --target aarch64-linux-android --release
 ```yml
 - target: armeabi-linux-androideabi
   strip: llvm-strip
-  image: ghcr.io/codebysushil/linux-android-armv7/linux-android-armv7:latest@sha256:90632d805b53d78e5f0fe98c0ac8ceb3528b344a00b024106b66919fbf91d887
+  image: ghcr.io/codebysushil/linux-android-armv7/linux-android-armv7:latest
 
 - target: aarch64-linux-andeoid
   strip: llvm-strip
-  image: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-debian-aarch64
+  image: ghcr.io/codebysushil/linux-android-armv7/linux-android-armv7:latest
 ```
